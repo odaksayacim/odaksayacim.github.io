@@ -211,4 +211,15 @@ function resetTimer() {
   hours = 0;
   updateDisplay();
 }
+
+
+function stopCounter() {
+  document.getElementById('counter').classList.add('stopped');
+  clearInterval(counterInterval); // sayacı durdur
+}
+
+function startCounter() {
+  document.getElementById('counter').classList.remove('stopped');
+  counterInterval = setInterval(updateCounter, 1000); // sayacı başlat
+}
 </script>
