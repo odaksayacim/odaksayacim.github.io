@@ -4,34 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OS - Odak Sayacı</title>
-<link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>⏱️ Odak Sayacı</h1>
-
-<div id="timer">00:00:00</div>
-  <p class="motivation">Küçük odaklar büyük sonuçlar doğurur.</p>
-
-
-<div class="buttons">
-<button onclick="startTimer()">Başlat</button>
-<button onclick="pauseTimer()">Duraklat</button>
-<button onclick="resetTimer()">Sıfırla</button>
-</div>
-
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
 
 <style>
-  
-  :root {
+:root {
   --ana-renk: #4A90E2;
   --arka-plan: #1e1e1e;
   --kart-renk: #2a2a2a;
@@ -49,7 +24,7 @@ body {
   height: 100vh;
 }
 
-/* Kart daha büyük ve sade */
+/* Kart */
 .container {
   background: var(--kart-renk);
   width: 80vw;
@@ -60,23 +35,28 @@ body {
   box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
-/* KRONOMETRE ODAK NOKTASI */
+/* Kronometre */
 #timer {
-
   font-size: clamp(45px, 10vw, 110px);
   font-weight: bold;
-  margin: 50px 0;
+  margin: 40px 0;
   letter-spacing: 4px;
 }
 
-/* MODERN BUTON GRUBU */
+/* Motivasyon */
+.motivation {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-bottom: 30px;
+}
+
+/* Butonlar */
 .buttons {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
 
-/* Modern buton tasarım */
 button {
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
@@ -85,90 +65,145 @@ button {
   border-radius: 14px;
   font-size: 16px;
   cursor: pointer;
-  backdrop-filter: blur(5px);
   transition: all 0.3s ease;
 }
 
-/* Hover efekti */
 button:hover {
   background: var(--ana-renk);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(74,144,226,0.4);
 }
 
+/* Mobil */
+@media (max-width: 600px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+/* Sürüm */
+.version {
+  position: fixed;
+  bottom: 20px;
+  right: 25px;
+  font-size: 14px;
+  opacity: 0.8;
+  color: #ffffff;
+  background: rgba(255,255,255,0.08);
+  padding: 6px 12px;
+  border-radius: 8px;
+  backdrop-filter: blur(6px);
+}
+
+  .paused {
+  color: #ff4d4d;
+  text-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
+}
 
   .running {
   color: var(--ana-renk);
   text-shadow: 0 0 20px rgba(74,144,226,0.7);
 }
 
-  .motivation {
-  margin-top: 25px;
-  font-size: 15px;
-  opacity: 0.7;
-  letter-spacing: 1px;
+  #timer.running {
+  color: var(--ana-renk) !important;
+  text-shadow: 0 0 20px rgba(74,144,226,0.7);
 }
 
-  /* 📱 Tablet */
-@media (max-width: 900px) {
-  .container {
-    width: 90vw;
-    padding: 50px 25px;
-  }
-
-  #timer {
-    font-size: 80px;
-  }
-
-  button {
-    padding: 14px 25px;
-    font-size: 15px;
-  }
+#timer.paused {
+  color: #ff4d4d !important;
+  text-shadow: 0 0 15px rgba(255, 77, 77, 0.6);
 }
 
-/* 📱 Telefon */
-@media (max-width: 600px) {
-  .container {
-    width: 92vw;
-    padding: 40px 20px;
-  }
 
-  #timer {
-    font-size: 55px;
-    letter-spacing: 2px;
-  }
-
-  .buttons {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  button {
-    width: 100%;
-  }
-
-  h1 {
-    font-size: 22px;
-  }
+  /* Gradient arka plan */
+body {
+  background: radial-gradient(circle at top, #1b2a4a, #0f0f0f);
 }
 
-#counter {
-  background-color: white; /* normal renk */
-  transition: background-color 0.3s;
+/* Timer alanı */
+.timer-wrapper {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#counter.stopped {
-  background-color: red; /* durduğunda olacak renk */
+/* Focus ring */
+.focus-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.08);
+  box-shadow: 0 0 40px rgba(74,144,226,0.15);
 }
 
+/* Kronometre */
+#timer {
+  font-size: clamp(40px, 6vw, 70px);
+  font-weight: bold;
+  letter-spacing: 3px;
+  z-index: 2;
+}
+
+/* Çalışırken animasyon */
+.running-ring {
+  animation: pulse 2s infinite;
+  border-color: var(--ana-renk);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 20px rgba(74,144,226,0.3);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(74,144,226,0.6);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(74,144,226,0.3);
+  }
+}
 
 </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>⏱️ Odak Sayacı <span class="version">v1.0.0</span></h1>
+
+
+<div class="timer-wrapper">
+  <div class="focus-ring"></div>
+  <div id="timer">00:00:00</div>
+</div>
+
+
+<p class="motivation">Küçük odaklar büyük sonuçlar doğurur.</p>
+
+<div class="buttons">
+<button onclick="startTimer()">Başlat</button>
+<button onclick="pauseTimer()">Duraklat</button>
+<button onclick="resetTimer()">Sıfırla</button>
+</div>
+
+</div>
+
+<div class="version">v1.0.0</div>
 
 <script>
 let seconds = 0;
 let minutes = 0;
 let hours = 0;
-
 let interval = null;
 
 function updateDisplay() {
@@ -178,48 +213,68 @@ function updateDisplay() {
 
   document.getElementById("timer").textContent = `${h}:${m}:${s}`;
 }
+  
+const timer = document.getElementById("timer");
 
 function startTimer() {
+  ring.classList.add("running-ring");
+
   if (interval) return;
+
+  // Çalışma rengi
+  timer.style.color = "#4A90E2";
+  timer.style.textShadow = "0 0 20px rgba(74,144,226,0.7)";
 
   interval = setInterval(() => {
     seconds++;
 
-    if (seconds === 60) {
+    if (seconds >= 60) {
       seconds = 0;
       minutes++;
     }
 
-    if (minutes === 60) {
+    if (minutes >= 60) {
       minutes = 0;
       hours++;
+      
     }
 
     updateDisplay();
   }, 1000);
+
 }
 
 function pauseTimer() {
+  ring.classList.remove("running-ring");
+
   clearInterval(interval);
   interval = null;
+
+  // Duraklatınca kırmızı
+  timer.style.color = "#ff4d4d";
+  timer.style.textShadow = "0 0 15px rgba(255,77,77,0.7)";
 }
 
 function resetTimer() {
-  pauseTimer();
+  ring.classList.remove("running-ring");
+
+  clearInterval(interval);
+  interval = null;
+
   seconds = 0;
   minutes = 0;
   hours = 0;
+
   updateDisplay();
+
+  // Reset rengi
+  timer.style.color = "white";
+  timer.style.textShadow = "none";
 }
 
+  const ring = document.querySelector(".focus-ring");
 
-function stopCounter() {
-  document.getElementById('counter').classList.add('stopped');
-  clearInterval(counterInterval); // sayacı durdur
-}
-
-function startCounter() {
-  document.getElementById('counter').classList.remove('stopped');
-  counterInterval = setInterval(updateCounter, 1000); // sayacı başlat
-}
 </script>
+
+</body>
+</html>
