@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OS - Odak Sayacı</title>
 
+<div class="mode-switch">
+  <button class="active" id="timerMode">Kronometre</button>
+  <button id="pomodoroMode">Pomodoro</button>
+</div>
+
+
 <style>
 :root {
   --ana-renk: #4A90E2;
@@ -172,6 +178,32 @@ body {
   }
 }
 
+  .mode-switch {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.mode-switch button {
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.mode-switch button:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.mode-switch .active {
+  background: var(--ana-renk);
+}
+
 </style>
 </head>
 
@@ -179,7 +211,7 @@ body {
 
 <div class="container">
 
-<h1>⏱️ Odak Sayacı <span class="version">v1.0.0</span></h1>
+<h1>⏱️ Odak Sayacı <span class="version">v1.1.0</span></h1>
 
 
 <div class="timer-wrapper">
